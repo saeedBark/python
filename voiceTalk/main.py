@@ -6,7 +6,7 @@ import  datetime
 import  os
 from pydub import AudioSegment
 from  pydub.playback import  play
-import pyautogui 
+import pyautogui
 
 
 wel = pyttsx3.init()
@@ -41,7 +41,7 @@ play(music)
 
 #time.sleep(1)
 
-#music1 =  AudioSegement.from_mp3('sounds/welcome2.mp3')
+#music1 =  AudioSegment.from_mp3('sounds/welcome2.mp3')
 #play(music1)
 
 
