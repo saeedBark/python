@@ -42,7 +42,7 @@ def listen():
             print("انا في الاستماع")
             voice = listener.listen(source)
             command = listener.recognize_google(voice, language=LANG)
-            if 'اليكسا' in command:
+            if 'سعيد' in command:
                 print(command)
                 return command
             else:
@@ -63,7 +63,7 @@ def handle_command(command_text):
     elif 'كيف حالك' in command_text:
         speak(".بخير الحمد لله .")
     elif 'عنوانك' in command_text:
-        speak(".أنا أسكن في تطوان .")
+        speak(".أنا أسكن في نواكشوط .")
     elif 'اخبار' in command_text:
         URL = "https://www.hespress.com"
         page = requests.get(URL, headers=headers)
@@ -73,7 +73,7 @@ def handle_command(command_text):
             print(news_item)
             speak(news_item)
     elif 'لدي سؤال' in command_text:
-        question = command_text.replace('لدي سؤال', '').replace('اليكسا', '')
+        question = command_text.replace('لدي سؤال', '').replace('سعيد', '')
         URL = "https://www.google.co.ma/search?hl="+LANG+"&q=" + question
         page = requests.get(URL, headers=headers)
         soup = BeautifulSoup(page.content, 'html.parser')
@@ -83,12 +83,12 @@ def handle_command(command_text):
             speak(result)
         except:
             pass
-    elif 'اغنيه' in command_text or 'موسيقى' in command_text or 'سوره' in command_text or 'صوره' in command_text:
-        command_text = command_text.replace('اليكسا', '')
+    elif 'اغنيه' in command_text or 'موسيقى' in command_text or 'سوره' in command_text :
+        command_text = command_text.replace('سعيد', '')
         speak(intro + " ها هي " + command_text)
         pywhatkit.playonyt(command_text)
-    elif 'كلميني عن' in command_text:
-        command_text = command_text.replace('كلميني عن', '').replace('اليكسا', '')
+    elif 'كلمني عن' in command_text:
+        command_text = command_text.replace('كلمني عن', '').replace('سعيد', '')
         info = wikipedia.summary(command_text, 1)
         speak(info)
     elif 'نكته' in command_text:
