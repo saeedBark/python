@@ -36,12 +36,16 @@ def get_time():
 def get_date():
     return datetime.datetime.now().strftime("%A %d/%m/%Y")
 
-def listen():
+def listen(text_box):
     try:
         with sr.Microphone() as source:
             print("انا في الاستماع")
+            text_box.insert(tk.END, "Listening...\n")
+            text_box.update_idletasks()
             voice = listener.listen(source)
             command = listener.recognize_google(voice, language=LANG)
+            text_box.insert(tk.END, f"You said: {command}\n")
+            text_box.update_idletasks()
             if 'سعيد' in command:
                 print(command)
                 return command
@@ -98,8 +102,8 @@ def handle_command(command_text):
         speak(translated_joke.text)
 
 
-def start_listening():
-    command = listen()
+def start_listening(text_box):
+    command = listen(text_box)
     if command:
         handle_command(command)
 
@@ -107,12 +111,15 @@ def start_listening():
 # GUI setup
 window = tk.Tk()
 window.title("Voice Command Assistant")
-window.geometry("400x200")
+window.geometry("900x800")
 
 # Microphone icon
 microphone_icon = tk.PhotoImage(file="microphone_icon.png")
 
-start_button = tk.Button(window, text="Start Listening", image=microphone_icon, compound="left", command=start_listening, bg="white", borderwidth=0, highlightthickness=0)
+text_box = tk.Text(window, height=20, width=100)
+text_box.pack(pady=10)
+
+start_button = tk.Button(window, image=microphone_icon, compound="left", command=lambda: start_listening(text_box), bg="white", borderwidth=0, highlightthickness=0)
 start_button.pack(pady=20)
 
 exit_button = tk.Button(window, text="Exit", command=window.destroy, bg="red", fg="white", padx=10, pady=5, borderwidth=0, highlightthickness=0)
